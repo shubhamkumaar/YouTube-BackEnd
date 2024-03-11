@@ -33,13 +33,22 @@ const uploadOnCloudinary = async (localPath)=>{
 
 const deleteOnCloudinary = async(path) =>{
     // console.log(`Path cloudinary.js ${path}`);
-    const urlArray = path.split("/")
-    const img = urlArray[urlArray.length-1].split(".")[0]
-    console.log(img)
-    cloudinary.uploader.destroy(path, (error,result)=>{
-        console.log(error,result);
+    try {
+        if(!path){
+            return null
+        }
+        const urlArray = path.split("/")
+        const img = urlArray[urlArray.length-1].split(".")[0]
+        // console.log(img)
+        cloudinary.uploader.destroy(path, (error,result)=>{
+            if(error){
+                return null
+            }
+        }
+        )
+    } catch (error) {
+        return null
     }
-    )
 }
 
 
