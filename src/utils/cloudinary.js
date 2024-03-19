@@ -39,7 +39,7 @@ const deleteOnCloudinary = async(path) =>{
         const urlArray = path.split("/")
         const img = urlArray[urlArray.length-1].split(".")[0]
         // console.log(img)
-        cloudinary.uploader.destroy(path, (error,result)=>{
+        cloudinary.uploader.destroy(img, (error,result)=>{
             if(error){
                 return null
             }
