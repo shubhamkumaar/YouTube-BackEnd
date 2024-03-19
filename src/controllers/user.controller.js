@@ -396,7 +396,7 @@ const getUserChannelProfie = asyncHandler(async(req,res)=>{
     if(!channel.length){
         throw new ApiError(404,"Channel does not Exist")
     }
-    console.log(channel);
+    // console.log(channel);
     return res
     .status(200)
     .json(
@@ -405,13 +405,13 @@ const getUserChannelProfie = asyncHandler(async(req,res)=>{
 })
 
 const getWatchHistory = asyncHandler(async(req,res) => {
-    console.log(req.user._id);
-    const userId = req.user._id.split('(');
     const user = await User.aggregate([
         {
             $match:{
-                _id: new mongoose.Types.ObjectId(req.user._id.toString())
-            },
+                _id:  new mongoose.Types.ObjectId(req.user._id)
+            }
+        },
+        {
             $lookup:{
                 from :"videos",
                 localField:"watchHistory",
@@ -468,6 +468,6 @@ export {
     updateAccountDetails,
     updateUserAvatar,
     updateUserCoverImage,
-    getUserChannelProfie, // pending to check
+    getUserChannelProfie, 
     getWatchHistory
 }
